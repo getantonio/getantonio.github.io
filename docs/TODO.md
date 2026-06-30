@@ -46,7 +46,7 @@ Last updated: 2026-06-30
 - Created and started the clean `@acolomba_bot` Telegram bot, then redeployed the temporary Worker with its token.
 - Added optional photo and audio attachments to the message form.
 - Created a CUNY / city-school program list covering tech, cybersecurity, business, digital media, online SPS options, and ASAP support.
-- Kept the header nav label as Projects and renamed the Bio target section to Agentic Engineering Projects.
+- Restored `projects.html` and pointed the Projects nav link back to the page.
 
 ## Blocked
 
