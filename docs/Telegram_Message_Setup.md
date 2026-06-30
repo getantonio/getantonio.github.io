@@ -38,3 +38,13 @@ After the Worker is deployed, copy its URL into the site form:
 ```
 
 Then push the site again.
+
+## Current endpoint
+
+The form is currently wired to:
+
+```text
+https://antonio-telegram-message.pine-porter.workers.dev
+```
+
+This was created as a temporary Cloudflare Worker. Claim or redeploy it under Antonio's Cloudflare account for a durable production endpoint.
