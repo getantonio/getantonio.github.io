@@ -34,6 +34,7 @@ Last updated: 2026-06-30
 - Carried the subtitle `Operations Support | Production Coordination | Customer Support` onto the resume page and downloadable resume.
 - Made site Contact links and visible email addresses open a prefilled email to `getantonio@gmail.com`.
 - Added Telegram contact links using `https://t.me/getantonio`.
+- Clarified Telegram contact copy so the primary nav reads `Message` and the contact block reads `Message on Telegram`.
 
 ## Blocked
 
