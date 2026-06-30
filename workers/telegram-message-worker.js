@@ -115,7 +115,7 @@ export default {
     }
 
     const text = [
-      "New site message",
+      "acolomba.site message",
       "",
       `Name: ${name}`,
       `Reply: ${replyTo}`,
