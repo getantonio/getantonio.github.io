@@ -1,0 +1,376 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Antonio Colomba</title>
+  <style>
+    :root {
+      --paper: #f8f8f5;
+      --ink: #202833;
+      --muted: #66717f;
+      --blue: #174e8f;
+      --teal: #0f766e;
+      --rule: #dfe7ef;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 18px;
+      line-height: 1.5;
+    }
+
+    main {
+      width: min(100% - 44px, 960px);
+      margin: 0 auto;
+      padding: 22px 0 30px;
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 24px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .mark {
+      font-size: 16px;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    .links {
+      display: flex;
+      gap: 20px;
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    a {
+      color: inherit;
+      text-decoration-thickness: 1px;
+      text-underline-offset: 4px;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 260px;
+      gap: 40px;
+      align-items: start;
+      padding: 34px 0 44px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(48px, 8.2vw, 93px);
+      line-height: 0.9;
+      letter-spacing: 0;
+      text-transform: uppercase;
+    }
+
+    .subtitle {
+      max-width: 760px;
+      margin: 18px 0 0;
+      color: var(--blue);
+      font-size: clamp(20px, 2.25vw, 27px);
+      font-weight: 700;
+      line-height: 1.12;
+    }
+
+    .summary {
+      max-width: 820px;
+      margin: 30px 0 0;
+      font-size: 19px;
+      line-height: 1.42;
+    }
+
+    .side {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      gap: 34px;
+      padding-top: 0;
+    }
+
+    .contact {
+      color: var(--muted);
+      font-size: 16px;
+      line-height: 1.55;
+      text-align: right;
+    }
+
+    .contact strong {
+      display: block;
+      color: var(--ink);
+      font-size: 17px;
+    }
+
+    .contact a {
+      color: var(--blue);
+      font-weight: 700;
+    }
+
+    .menu {
+      display: grid;
+      gap: 12px;
+      text-align: right;
+    }
+
+    .menu a {
+      display: block;
+      padding: 14px 0;
+      border-top: 1px solid var(--rule);
+      color: var(--blue);
+      font-size: 20px;
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    .menu span {
+      display: block;
+      margin-top: 3px;
+      color: var(--muted);
+      font-size: 15px;
+      font-weight: 400;
+    }
+
+    .message-panel {
+      display: grid;
+      grid-template-columns: minmax(0, 0.75fr) minmax(280px, 1fr);
+      gap: 34px;
+      align-items: start;
+      padding: 34px 0 42px;
+      border-top: 1px solid var(--rule);
+    }
+
+    .message-panel h2 {
+      margin: 0;
+      color: var(--blue);
+      font-size: clamp(30px, 4vw, 48px);
+      line-height: 1;
+    }
+
+    .message-panel p {
+      margin: 14px 0 0;
+      color: var(--muted);
+    }
+
+    .message-form {
+      display: grid;
+      gap: 12px;
+    }
+
+    .message-form label {
+      display: grid;
+      gap: 5px;
+      color: var(--ink);
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .message-form input,
+    .message-form textarea {
+      width: 100%;
+      border: 1px solid var(--rule);
+      border-radius: 0;
+      background: #fffffb;
+      color: var(--ink);
+      font: inherit;
+      font-size: 16px;
+      line-height: 1.35;
+      padding: 10px 11px;
+    }
+
+    .message-form textarea {
+      min-height: 138px;
+      resize: vertical;
+    }
+
+    .message-form button {
+      justify-self: start;
+      border: 1px solid var(--blue);
+      background: var(--blue);
+      color: var(--paper);
+      cursor: pointer;
+      font: inherit;
+      font-size: 15px;
+      font-weight: 700;
+      padding: 9px 15px;
+    }
+
+    .message-form button:disabled {
+      cursor: wait;
+      opacity: 0.72;
+    }
+
+    .message-status {
+      min-height: 1.4em;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.35;
+    }
+
+    footer {
+      padding-top: 20px;
+      border-top: 1px solid var(--rule);
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    @media (max-width: 760px) {
+      main {
+        width: min(100% - 30px, 960px);
+      }
+
+      nav,
+      .hero {
+        grid-template-columns: 1fr;
+      }
+
+      nav {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .hero {
+        display: block;
+        padding: 38px 0 48px;
+      }
+
+      .summary,
+      .side {
+        margin-left: 0;
+      }
+
+      .side {
+        min-height: auto;
+        margin-top: 34px;
+        gap: 34px;
+      }
+
+      .contact {
+        text-align: left;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <nav aria-label="Main navigation">
+      <a class="mark" href="antonio-colomba-bio.html">Antonio Colomba</a>
+      <div class="links">
+        <a href="antonio-resume.html">Resume</a>
+        <a href="antonio-bio.html">Bio</a>
+        <a href="#message">Message</a>
+      </div>
+    </nav>
+
+    <section class="hero">
+      <div>
+        <h1>Antonio<br>Colomba</h1>
+        <p class="subtitle">Operations Support |<br>Production Coordination | Customer Support</p>
+        <p class="summary">
+          Photography, print, and visual production foundation, now applied to operations support,
+          Agentic engineering, AI agent workflows, AI content creation, generative media tools,
+          technical coordination, and organized project follow-through.
+        </p>
+      </div>
+
+      <aside class="side">
+        <p class="contact">
+          <strong>NYC / Remote</strong>
+          (561) 271-1163
+        </p>
+
+        <div class="menu" aria-label="Page links">
+          <a href="antonio-resume.html">Resume <span>Full resume page with DOCX download.</span></a>
+          <a href="antonio-bio.html">Bio <span>Background, positioning, current project work.</span></a>
+        </div>
+      </aside>
+    </section>
+
+    <section class="message-panel" id="message" aria-labelledby="message-title">
+      <div>
+        <h2 id="message-title">Send a message</h2>
+        <p>Use this box for work inquiries, support roles, production coordination, or project follow-up.</p>
+      </div>
+
+      <form class="message-form" data-message-form data-endpoint="https://antonio-telegram-message.pine-porter.workers.dev">
+        <label>
+          Name
+          <input name="name" autocomplete="name" required>
+        </label>
+        <label>
+          Email or phone
+          <input name="replyTo" autocomplete="email" required>
+        </label>
+        <label>
+          Message
+          <textarea name="message" required></textarea>
+        </label>
+        <button type="submit">Send to Telegram</button>
+        <p class="message-status" role="status" aria-live="polite"></p>
+      </form>
+    </section>
+
+    <footer>Available for management, operations, admin, production coordination, technical support, AI content workflows, and AI agent workflows.</footer>
+  </main>
+  <script>
+    const messageForm = document.querySelector("[data-message-form]");
+
+    if (messageForm) {
+      const status = messageForm.querySelector(".message-status");
+      const button = messageForm.querySelector("button");
+
+      messageForm.addEventListener("submit", async (event) => {
+        event.preventDefault();
+        const endpoint = messageForm.dataset.endpoint.trim();
+
+        if (!endpoint) {
+          status.textContent = "Message box is ready. Connect the secure Telegram Worker endpoint to turn on delivery.";
+          return;
+        }
+
+        const formData = new FormData(messageForm);
+        const payload = {
+          name: formData.get("name").toString().trim(),
+          replyTo: formData.get("replyTo").toString().trim(),
+          message: formData.get("message").toString().trim(),
+          page: window.location.href,
+        };
+
+        button.disabled = true;
+        status.textContent = "Sending...";
+
+        try {
+          const response = await fetch(endpoint, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload),
+          });
+
+          if (!response.ok) {
+            throw new Error("Message failed");
+          }
+
+          messageForm.reset();
+          status.textContent = "Sent. Antonio will receive this in Telegram.";
+        } catch (error) {
+          status.textContent = "Could not send yet. Use Telegram or email above while the endpoint is being connected.";
+        } finally {
+          button.disabled = false;
+        }
+      });
+    }
+  </script>
+</body>
+</html>
