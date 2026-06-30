@@ -35,6 +35,8 @@ Last updated: 2026-06-30
 - Made site Contact links and visible email addresses open a prefilled email to `getantonio@gmail.com`.
 - Added Telegram contact links using `https://t.me/getantonio`.
 - Clarified Telegram contact copy so the primary nav reads `Message` and the contact block reads `Message on Telegram`.
+- Added a site message-box UI and Cloudflare Worker scaffold for sending form submissions to Telegram.
+- Removed the unrequested visible Telegram and email links from the site contact headers.
 
 ## Blocked
 
@@ -52,6 +54,7 @@ Last updated: 2026-06-30
 ## Queued
 
 - Enable HTTPS enforcement in GitHub Pages after GitHub finishes issuing the certificate for `acolomba.site`.
+- Connect the message-box form to a deployed Cloudflare Worker after BotFather token and Telegram chat ID are available.
 - Build a second, very plain immediate-cash resume for customer support, sales, operations, temp, warehouse, and admin roles.
 - Build a visual-production/AI-image-QA resume for the fastest realistic buyer group.
 - Build a tech/fintech bridge resume using creative production plus code projects.

@@ -143,6 +143,82 @@
       font-weight: 400;
     }
 
+    .message-panel {
+      display: grid;
+      grid-template-columns: minmax(0, 0.75fr) minmax(280px, 1fr);
+      gap: 34px;
+      align-items: start;
+      padding: 34px 0 42px;
+      border-top: 1px solid var(--rule);
+    }
+
+    .message-panel h2 {
+      margin: 0;
+      color: var(--blue);
+      font-size: clamp(30px, 4vw, 48px);
+      line-height: 1;
+    }
+
+    .message-panel p {
+      margin: 14px 0 0;
+      color: var(--muted);
+    }
+
+    .message-form {
+      display: grid;
+      gap: 12px;
+    }
+
+    .message-form label {
+      display: grid;
+      gap: 5px;
+      color: var(--ink);
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .message-form input,
+    .message-form textarea {
+      width: 100%;
+      border: 1px solid var(--rule);
+      border-radius: 0;
+      background: #fffffb;
+      color: var(--ink);
+      font: inherit;
+      font-size: 16px;
+      line-height: 1.35;
+      padding: 10px 11px;
+    }
+
+    .message-form textarea {
+      min-height: 138px;
+      resize: vertical;
+    }
+
+    .message-form button {
+      justify-self: start;
+      border: 1px solid var(--blue);
+      background: var(--blue);
+      color: var(--paper);
+      cursor: pointer;
+      font: inherit;
+      font-size: 15px;
+      font-weight: 700;
+      padding: 9px 15px;
+    }
+
+    .message-form button:disabled {
+      cursor: wait;
+      opacity: 0.72;
+    }
+
+    .message-status {
+      min-height: 1.4em;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.35;
+    }
+
     footer {
       padding-top: 20px;
       border-top: 1px solid var(--rule);
@@ -194,7 +270,7 @@
       <div class="links">
         <a href="antonio-resume.html">Resume</a>
         <a href="antonio-bio.html">Bio</a>
-        <a href="https://t.me/getantonio">Message</a>
+        <a href="#message">Message</a>
       </div>
     </nav>
 
@@ -212,9 +288,7 @@
       <aside class="side">
         <p class="contact">
           <strong>NYC / Remote</strong>
-          (561) 271-1163<br>
-          <a href="https://t.me/getantonio">Message on Telegram: @getantonio</a><br>
-          <a href="mailto:getantonio@gmail.com?subject=Work%20Inquiry&body=Hi%20Antonio%2C%0A%0AI%20found%20your%20site%20and%20wanted%20to%20reach%20out.%0A">getantonio@gmail.com</a>
+          (561) 271-1163
         </p>
 
         <div class="menu" aria-label="Page links">
@@ -224,7 +298,79 @@
       </aside>
     </section>
 
+    <section class="message-panel" id="message" aria-labelledby="message-title">
+      <div>
+        <h2 id="message-title">Send a message</h2>
+        <p>Use this box for work inquiries, support roles, production coordination, or project follow-up.</p>
+      </div>
+
+      <form class="message-form" data-message-form data-endpoint="">
+        <label>
+          Name
+          <input name="name" autocomplete="name" required>
+        </label>
+        <label>
+          Email or phone
+          <input name="replyTo" autocomplete="email" required>
+        </label>
+        <label>
+          Message
+          <textarea name="message" required></textarea>
+        </label>
+        <button type="submit">Send to Telegram</button>
+        <p class="message-status" role="status" aria-live="polite"></p>
+      </form>
+    </section>
+
     <footer>Available for management, operations, admin, production coordination, technical support, AI content workflows, and AI agent workflows.</footer>
   </main>
+  <script>
+    const messageForm = document.querySelector("[data-message-form]");
+
+    if (messageForm) {
+      const status = messageForm.querySelector(".message-status");
+      const button = messageForm.querySelector("button");
+
+      messageForm.addEventListener("submit", async (event) => {
+        event.preventDefault();
+        const endpoint = messageForm.dataset.endpoint.trim();
+
+        if (!endpoint) {
+          status.textContent = "Message box is ready. Connect the secure Telegram Worker endpoint to turn on delivery.";
+          return;
+        }
+
+        const formData = new FormData(messageForm);
+        const payload = {
+          name: formData.get("name").toString().trim(),
+          replyTo: formData.get("replyTo").toString().trim(),
+          message: formData.get("message").toString().trim(),
+          page: window.location.href,
+        };
+
+        button.disabled = true;
+        status.textContent = "Sending...";
+
+        try {
+          const response = await fetch(endpoint, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload),
+          });
+
+          if (!response.ok) {
+            throw new Error("Message failed");
+          }
+
+          messageForm.reset();
+          status.textContent = "Sent. Antonio will receive this in Telegram.";
+        } catch (error) {
+          status.textContent = "Could not send yet. Use Telegram or email above while the endpoint is being connected.";
+        } finally {
+          button.disabled = false;
+        }
+      });
+    }
+  </script>
 </body>
 </html>
