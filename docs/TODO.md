@@ -46,7 +46,6 @@ Last updated: 2026-06-30
 - Created and started the clean `@acolomba_bot` Telegram bot, then redeployed the temporary Worker with its token.
 - Added optional photo and audio attachments to the message form.
 - Created a CUNY / city-school program list covering tech, cybersecurity, business, digital media, online SPS options, and ASAP support.
-- Added a Projects page and wired it into the site navigation.
 
 ## Blocked
 
