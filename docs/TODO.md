@@ -1,6 +1,6 @@
 # New Job Search TODO
 
-Last updated: 2026-06-30
+Last updated: 2026-07-01
 
 ## Completed
 
@@ -47,6 +47,9 @@ Last updated: 2026-06-30
 - Added optional photo and audio attachments to the message form.
 - Created a CUNY / city-school program list covering tech, cybersecurity, business, digital media, online SPS options, and ASAP support.
 - Restored `projects.html` and pointed the Projects nav link back to the page.
+- Reduced the `projects.html` and `message.html` page heading sizes so the pages read less oversized.
+- Renamed the public immediate-work resume to `Operations Support Resume`, added a dedicated `operations-support-resume.html` page, and updated its DOCX download name.
+- Added Sound-a-tude under `projects/soundatude/` and linked it from the Projects page.
 
 ## Blocked
 

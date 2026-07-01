@@ -6,9 +6,10 @@ GitHub Pages serves this repository from the root of `main`, so the live site fi
 
 - `index.html`
 - `antonio-colomba-bio.html`
-- `antonio-resume.html`
+- `operations-support-resume.html`
+- `antonio-resume.html` (legacy compatibility copy)
 - `antonio-bio.html`
-- `Antonio_Colomba_Money_Resume.docx`
+- `Antonio_Colomba_Operations_Support_Resume.docx`
 - `Antonio_Colomba_Modern_Resume.docx`
 - `CNAME`
 
@@ -32,6 +33,6 @@ No separate deploy repository or publish-copy step is needed.
 The build scripts write the working DOCX in `docs/` and also refresh the root-level files used by the live site.
 
 ```bash
-python3 scripts/build_money_resume_docx.py
+python3 scripts/build_operations_support_resume_docx.py
 python3 scripts/build_modern_resume_docx.py
 ```

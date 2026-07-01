@@ -5,8 +5,8 @@ from docx.shared import Inches, Pt, RGBColor
 from shutil import copyfile
 
 
-OUT = "docs/Antonio_Colomba_Money_Resume.docx"
-SITE_OUT = "Antonio_Colomba_Money_Resume.docx"
+OUT = "docs/Antonio_Colomba_Operations_Support_Resume.docx"
+SITE_OUT = "Antonio_Colomba_Operations_Support_Resume.docx"
 
 INK = "1F2933"
 MUTED = "5B6673"
