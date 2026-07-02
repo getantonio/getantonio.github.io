@@ -132,7 +132,7 @@
     .image-button video {
       display: block;
       width: 100%;
-      aspect-ratio: 1040 / 884;
+      aspect-ratio: var(--ai-aspect, 1040 / 884);
       object-fit: cover;
       background: var(--night);
     }
@@ -390,6 +390,18 @@
   </div>
 
   <script>
+    const aiVideos = {
+      "01": { src: "video/image-01-ai-kling-720p.mp4", width: 1040, height: 884 },
+      "02": { src: "video/image-02-ai-kling-720p.mp4", width: 860, height: 1068 },
+      "03": { src: "video/image-03-ai-kling-720p.mp4", width: 856, height: 1072 },
+      "04": { src: "video/image-04-ai-kling-720p.mp4", width: 860, height: 1068 },
+      "05": { src: "video/image-05-ai-kling-720p.mp4", width: 828, height: 1108 },
+      "06": { src: "video/image-06-ai-kling-720p.mp4", width: 1040, height: 884 },
+      "07": { src: "video/image-07-ai-kling-720p.mp4", width: 1040, height: 884 },
+      "08": { src: "video/image-08-ai-kling-720p.mp4", width: 1024, height: 896 },
+      "09": { src: "video/image-09-ai-kling-720p.mp4", width: 856, height: 1072 }
+    };
+
     const items = Array.from({ length: 10 }, (_, index) => {
       const number = String(index + 1).padStart(2, "0");
       return {
@@ -398,10 +410,12 @@
         after: `images/image-${number}-after.webp`,
         beforeThumb: `images/image-${number}-before-thumb.webp`,
         afterThumb: `images/image-${number}-after-thumb.webp`,
-        ai: number === "01" ? {
+        ai: aiVideos[number] ? {
           type: "video",
-          src: "video/image-01-ai-kling-720p.mp4",
-          poster: "images/image-01-after-thumb.webp"
+          src: aiVideos[number].src,
+          poster: `images/image-${number}-after-thumb.webp`,
+          width: aiVideos[number].width,
+          height: aiVideos[number].height
         } : number === "10" ? {
           type: "image",
           src: `upscaled/image-${number}-after-higgsfield-4k.webp`
@@ -449,7 +463,7 @@
       if (item.ai.type === "video") {
         return `
           <button class="image-button" type="button" data-index="${Number(item.number) - 1}" data-state="ai" aria-label="Open image ${item.number} AI modified video">
-            <video src="${item.ai.src}" poster="${item.ai.poster}" muted autoplay loop playsinline></video>
+            <video src="${item.ai.src}" poster="${item.ai.poster}" muted autoplay loop playsinline style="--ai-aspect: ${item.ai.width} / ${item.ai.height};"></video>
           </button>
         `;
       }
