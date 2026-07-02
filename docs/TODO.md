@@ -78,6 +78,7 @@ Last updated: 2026-07-02
 - 2026-07-02 [Done] Clipped the before/after gallery thumbnail media inside the frame so letterbox bars no longer show around image 01.
 - 2026-07-02 [Done] Removed the dark gallery frame, tightened the before/after thumbnail crop, and left the opened AI video unmuted with controls.
 - 2026-07-02 [Done] Replaced the before/after thumbnail crop with natural still-image sizing so borders disappear without clipping the art.
+- 2026-07-02 [Done] Restored borderless full-image fitting for retouching gallery media so AI previews do not crop edges or add visible letterboxing.
 - 2026-07-02 [Done] Generated Higgsfield AI video states for retouching comparisons 02-09, including stronger realistic lume/timelapse reruns for watch images 08-09.
 - 2026-06-30 [Next] Research SUNY school/program options Antonio could enter for Summer 2026 if still feasible or Fall 2026, including loan/aid implications and realistic application timing.
 - Enable HTTPS enforcement in GitHub Pages after GitHub finishes issuing the certificate for `acolomba.site`.
