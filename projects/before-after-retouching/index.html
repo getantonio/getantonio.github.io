@@ -112,8 +112,8 @@
       display: block;
       width: 100%;
       padding: 0;
-      border: 1px solid var(--rule);
-      background: var(--night);
+      border: 0;
+      background: transparent;
       cursor: zoom-in;
       overflow: hidden;
     }
@@ -139,7 +139,8 @@
 
     .image-button[data-state="before"] img,
     .image-button[data-state="after"] img {
-      transform: scale(1.035);
+      transform: scale(1.12);
+      transform-origin: center;
     }
 
     .ai-placeholder {
