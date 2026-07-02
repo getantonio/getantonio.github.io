@@ -86,18 +86,11 @@
     }
 
     .comparison {
-      display: block;
-      align-items: start;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
       padding-bottom: 28px;
       border-bottom: 1px solid var(--rule);
-    }
-
-    .number {
-      color: var(--teal);
-      margin-bottom: 12px;
-      font-size: 22px;
-      font-weight: 700;
-      line-height: 1;
     }
 
     .comparison-view {
@@ -344,10 +337,6 @@
         text-align: left;
       }
 
-      .number {
-        font-size: 24px;
-      }
-
       .lightbox {
         padding: 14px;
       }
@@ -478,7 +467,6 @@
     function comparisonMarkup(item, index) {
       return `
         <article class="comparison">
-          <div class="number">${item.number}</div>
           <div class="comparison-view" data-index="${index}" data-current-state="before">
             <figure>
               <div class="display-slot">${imageButtonMarkup(item, index, "before")}</div>
