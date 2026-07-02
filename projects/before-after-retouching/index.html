@@ -1,0 +1,518 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Before/After Retouching | Antonio Colomba</title>
+  <style>
+    :root {
+      --paper: #f8f8f5;
+      --ink: #202833;
+      --muted: #66717f;
+      --blue: #174e8f;
+      --teal: #0f766e;
+      --rule: #dfe7ef;
+      --night: #090b0d;
+      --soft: #edf3f6;
+      --warm: #efe6d5;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 18px;
+      line-height: 1.55;
+    }
+
+    main {
+      width: min(100% - 44px, 1120px);
+      margin: 0 auto;
+      padding: 28px 0 78px;
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--rule);
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    nav strong {
+      color: var(--ink);
+      text-transform: uppercase;
+    }
+
+    a {
+      color: inherit;
+      text-decoration-thickness: 1px;
+      text-underline-offset: 4px;
+    }
+
+    header {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 280px;
+      gap: 52px;
+      align-items: end;
+      margin: 44px 0 38px;
+    }
+
+    h1 {
+      max-width: 780px;
+      margin: 0;
+      color: var(--blue);
+      font-size: clamp(38px, 7vw, 86px);
+      line-height: 0.93;
+      letter-spacing: 0;
+      text-transform: uppercase;
+    }
+
+    .subtitle {
+      max-width: 760px;
+      margin: 22px 0 0;
+      font-size: clamp(21px, 2.7vw, 34px);
+      font-weight: 700;
+      line-height: 1.11;
+    }
+
+    .meta {
+      margin: 0;
+      color: var(--muted);
+      font-size: 16px;
+      line-height: 1.5;
+      text-align: right;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin: 0 0 42px;
+      padding: 18px 0;
+      border-top: 1px solid var(--rule);
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .actions a {
+      color: var(--blue);
+      font-weight: 700;
+    }
+
+    .gallery {
+      display: grid;
+      gap: 44px;
+    }
+
+    .comparison {
+      display: grid;
+      grid-template-columns: 92px minmax(0, 1fr);
+      gap: 28px;
+      align-items: start;
+      padding-bottom: 44px;
+      border-bottom: 1px solid var(--rule);
+    }
+
+    .number {
+      color: var(--teal);
+      font-size: 30px;
+      font-weight: 700;
+      line-height: 1;
+    }
+
+    .pair {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    figure {
+      margin: 0;
+    }
+
+    .image-button {
+      display: block;
+      width: 100%;
+      padding: 0;
+      border: 1px solid var(--rule);
+      background: var(--night);
+      cursor: zoom-in;
+    }
+
+    .image-button:focus-visible {
+      outline: 3px solid var(--teal);
+      outline-offset: 4px;
+    }
+
+    .image-button img {
+      display: block;
+      width: 100%;
+      aspect-ratio: 1.12 / 1;
+      object-fit: contain;
+      background: var(--night);
+    }
+
+    .ai-placeholder {
+      display: grid;
+      width: 100%;
+      aspect-ratio: 1.12 / 1;
+      place-items: center;
+      border: 1px solid var(--rule);
+      background: var(--warm);
+      color: var(--ink);
+      text-align: center;
+    }
+
+    .ai-placeholder-inner {
+      width: min(100% - 38px, 260px);
+    }
+
+    .ai-kicker {
+      display: block;
+      color: var(--teal);
+      font-size: 14px;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    .ai-title {
+      display: block;
+      margin-top: 8px;
+      color: var(--blue);
+      font-size: clamp(20px, 2.3vw, 31px);
+      font-weight: 700;
+      line-height: 1.02;
+      text-transform: uppercase;
+    }
+
+    .ai-note {
+      display: block;
+      margin-top: 12px;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.35;
+    }
+
+    figcaption {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      margin-top: 10px;
+      color: var(--muted);
+      font-size: 14px;
+      text-transform: uppercase;
+    }
+
+    .open-link {
+      color: var(--blue);
+      font-weight: 700;
+      text-transform: none;
+    }
+
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      z-index: 10;
+      display: none;
+      grid-template-rows: auto minmax(0, 1fr) auto;
+      gap: 18px;
+      padding: 20px;
+      background: rgba(5, 7, 9, 0.96);
+      color: var(--soft);
+    }
+
+    .lightbox[aria-hidden="false"] {
+      display: grid;
+    }
+
+    .lightbox-top,
+    .lightbox-controls {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .lightbox-title {
+      margin: 0;
+      font-size: 18px;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    .close,
+    .switch,
+    .arrow {
+      border: 1px solid rgba(237, 243, 246, 0.34);
+      background: transparent;
+      color: var(--soft);
+      font: inherit;
+      cursor: pointer;
+    }
+
+    .close,
+    .arrow {
+      min-width: 44px;
+      min-height: 44px;
+      padding: 9px 13px;
+    }
+
+    .switches {
+      display: inline-flex;
+      border: 1px solid rgba(237, 243, 246, 0.34);
+    }
+
+    .switch {
+      min-width: 94px;
+      min-height: 42px;
+      border: 0;
+      padding: 9px 16px;
+      color: rgba(237, 243, 246, 0.72);
+    }
+
+    .switch[aria-pressed="true"] {
+      background: var(--soft);
+      color: var(--night);
+    }
+
+    .switch:disabled {
+      cursor: not-allowed;
+      opacity: 0.46;
+    }
+
+    .lightbox-stage {
+      display: grid;
+      min-height: 0;
+      place-items: center;
+    }
+
+    .lightbox-stage img {
+      display: block;
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+    }
+
+    .lightbox-count {
+      margin: 0;
+      color: rgba(237, 243, 246, 0.72);
+      font-size: 15px;
+    }
+
+    @media (max-width: 760px) {
+      main {
+        width: min(100% - 30px, 1120px);
+      }
+
+      nav,
+      header,
+      .comparison,
+      .pair {
+        grid-template-columns: 1fr;
+      }
+
+      nav,
+      .lightbox-top,
+      .lightbox-controls {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .meta {
+        text-align: left;
+      }
+
+      .number {
+        font-size: 24px;
+      }
+
+      .lightbox {
+        padding: 14px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <nav>
+      <strong>Antonio Colomba</strong>
+      <span><a href="../../antonio-colomba-bio.html">Home</a> | <a href="../../operations-support-resume.html">Resume</a> | <a href="../../antonio-bio.html">Bio</a> | <a href="../../projects.html">Projects</a> | <a href="../../message.html">Message</a></span>
+    </nav>
+
+    <header>
+      <div>
+        <h1>Before/After Retouching</h1>
+        <p class="subtitle">Recovered image pairs from an older interactive 8x8 PDF, rebuilt as a reliable static gallery with room for AI-altered variants.</p>
+      </div>
+      <p class="meta">10 comparisons<br>20 extracted image states<br>AI variants queued</p>
+    </header>
+
+    <div class="actions">
+      <a href="ColombaBook8x8_rebuilt_static.pdf">Download rebuilt PDF</a>
+      <a href="../../projects.html">Back to projects</a>
+    </div>
+
+    <section class="gallery" aria-label="Before, after, and AI retouching comparisons"></section>
+  </main>
+
+  <div class="lightbox" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Image comparison viewer">
+    <div class="lightbox-top">
+      <p class="lightbox-title">Image 01</p>
+      <button class="close" type="button" aria-label="Close viewer">x</button>
+    </div>
+    <div class="lightbox-stage">
+      <img alt="">
+    </div>
+    <div class="lightbox-controls">
+      <button class="arrow prev" type="button" aria-label="Previous image">&lt;</button>
+      <div class="switches" aria-label="Choose image state">
+        <button class="switch" type="button" data-state="before" aria-pressed="true">Before</button>
+        <button class="switch" type="button" data-state="after" aria-pressed="false">After</button>
+        <button class="switch" type="button" data-state="ai" aria-pressed="false" disabled>AI</button>
+      </div>
+      <p class="lightbox-count">1 / 10</p>
+      <button class="arrow next" type="button" aria-label="Next image">&gt;</button>
+    </div>
+  </div>
+
+  <script>
+    const items = Array.from({ length: 10 }, (_, index) => {
+      const number = String(index + 1).padStart(2, "0");
+      return {
+        number,
+        before: `images/image-${number}-before.webp`,
+        after: `images/image-${number}-after.webp`,
+        beforeThumb: `images/image-${number}-before-thumb.webp`,
+        afterThumb: `images/image-${number}-after-thumb.webp`
+      };
+    });
+
+    const gallery = document.querySelector(".gallery");
+    const lightbox = document.querySelector(".lightbox");
+    const lightboxImage = lightbox.querySelector(".lightbox-stage img");
+    const lightboxTitle = lightbox.querySelector(".lightbox-title");
+    const lightboxCount = lightbox.querySelector(".lightbox-count");
+    const switches = [...lightbox.querySelectorAll(".switch")];
+    let currentIndex = 0;
+    let currentState = "before";
+    let lastFocused = null;
+
+    function comparisonMarkup(item, index) {
+      return `
+        <article class="comparison">
+          <div class="number">${item.number}</div>
+          <div class="pair">
+            <figure>
+              <button class="image-button" type="button" data-index="${index}" data-state="before" aria-label="Open image ${item.number} before">
+                <img src="${item.beforeThumb}" alt="Before state for retouching comparison ${item.number}">
+              </button>
+              <figcaption><span>Before</span><span class="open-link">Open</span></figcaption>
+            </figure>
+            <figure>
+              <button class="image-button" type="button" data-index="${index}" data-state="after" aria-label="Open image ${item.number} after">
+                <img src="${item.afterThumb}" alt="After state for retouching comparison ${item.number}">
+              </button>
+              <figcaption><span>After</span><span class="open-link">Open</span></figcaption>
+            </figure>
+            <figure>
+              <div class="ai-placeholder" aria-label="AI altered placeholder for comparison ${item.number}">
+                <span class="ai-placeholder-inner">
+                  <span class="ai-kicker">Queued</span>
+                  <span class="ai-title">AI Altered</span>
+                  <span class="ai-note">Higgsfield variant will land here.</span>
+                </span>
+              </div>
+              <figcaption><span>AI altered</span><span>Pending</span></figcaption>
+            </figure>
+          </div>
+        </article>
+      `;
+    }
+
+    function renderGallery() {
+      gallery.innerHTML = items.map(comparisonMarkup).join("");
+      gallery.querySelectorAll(".image-button").forEach((button) => {
+        button.addEventListener("click", () => {
+          openLightbox(Number(button.dataset.index), button.dataset.state, button);
+        });
+      });
+    }
+
+    function updateLightbox() {
+      const item = items[currentIndex];
+      lightboxImage.src = item[currentState];
+      lightboxImage.alt = `${currentState} state for retouching comparison ${item.number}`;
+      lightboxTitle.textContent = `Image ${item.number}`;
+      lightboxCount.textContent = `${currentIndex + 1} / ${items.length}`;
+      switches.forEach((button) => {
+        button.setAttribute("aria-pressed", String(button.dataset.state === currentState));
+      });
+    }
+
+    function openLightbox(index, state, trigger) {
+      currentIndex = index;
+      currentState = state;
+      lastFocused = trigger;
+      updateLightbox();
+      lightbox.setAttribute("aria-hidden", "false");
+      document.body.style.overflow = "hidden";
+      lightbox.querySelector(".close").focus();
+    }
+
+    function closeLightbox() {
+      lightbox.setAttribute("aria-hidden", "true");
+      document.body.style.overflow = "";
+      if (lastFocused) {
+        lastFocused.focus();
+      }
+    }
+
+    function moveLightbox(direction) {
+      currentIndex = (currentIndex + direction + items.length) % items.length;
+      updateLightbox();
+    }
+
+    switches.forEach((button) => {
+      button.addEventListener("click", () => {
+        currentState = button.dataset.state;
+        updateLightbox();
+      });
+    });
+
+    lightbox.querySelector(".close").addEventListener("click", closeLightbox);
+    lightbox.querySelector(".prev").addEventListener("click", () => moveLightbox(-1));
+    lightbox.querySelector(".next").addEventListener("click", () => moveLightbox(1));
+
+    lightbox.addEventListener("click", (event) => {
+      if (event.target === lightbox) {
+        closeLightbox();
+      }
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (lightbox.getAttribute("aria-hidden") === "true") {
+        return;
+      }
+      if (event.key === "Escape") {
+        closeLightbox();
+      }
+      if (event.key === "ArrowLeft") {
+        moveLightbox(-1);
+      }
+      if (event.key === "ArrowRight") {
+        moveLightbox(1);
+      }
+    });
+
+    renderGallery();
+    updateLightbox();
+  </script>
+</body>
+</html>

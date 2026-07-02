@@ -1,9 +1,12 @@
 # New Job Search TODO
 
-Last updated: 2026-07-01
+Last updated: 2026-07-02
 
 ## Completed
 
+- Extracted and rebuilt `/Users/getantonio/Desktop/ColombaBook8x8.pdf` into a non-interactive 20-page before/after PDF with no form buttons.
+- Added the extracted before/after image gallery under `projects/before-after-retouching/` with a lightbox viewer and rebuilt PDF download.
+- Linked the before/after retouching gallery from `projects.html`.
 - Created a project workspace for Ripple / NYC fintech job-search materials.
 - Verified current Ripple careers data from the live Ripple careers page.
 - Built first-pass materials:
@@ -68,6 +71,7 @@ Last updated: 2026-07-01
 
 ## Queued
 
+- 2026-07-02 [Queued] Generate Higgsfield AI-altered variants for the `projects/before-after-retouching/` gallery and replace the placeholder third state for each comparison.
 - 2026-06-30 [Next] Research SUNY school/program options Antonio could enter for Summer 2026 if still feasible or Fall 2026, including loan/aid implications and realistic application timing.
 - Enable HTTPS enforcement in GitHub Pages after GitHub finishes issuing the certificate for `acolomba.site`.
 - Claim or redeploy the temporary Cloudflare Worker endpoint under Antonio's Cloudflare account so message-box delivery remains durable.
