@@ -374,7 +374,7 @@
     <div class="lightbox-controls">
       <button class="arrow prev" type="button" aria-label="Previous image">&lt;</button>
       <div class="switches" aria-label="Choose image state">
-        <button class="switch before-after-lightbox-toggle is-active" type="button" data-state="after">Show after</button>
+        <button class="switch before-after-lightbox-toggle is-active" type="button" data-state="after">After</button>
         <button class="switch ai-lightbox-toggle" type="button" data-state="ai" aria-pressed="false" disabled>AI modified</button>
       </div>
       <p class="lightbox-count">1 / 10</p>
@@ -449,7 +449,7 @@
               <figcaption><span class="state-label">Before</span><span class="state-action open-link">Open</span></figcaption>
             </figure>
             <div class="view-controls" aria-label="Choose state for image ${item.number}">
-              <button class="view-control before-after-toggle is-active" type="button" aria-label="Show after image ${item.number}">Show after</button>
+              <button class="view-control before-after-toggle is-active" type="button" aria-label="Show after image ${item.number}">After</button>
               <button class="view-control ai-toggle" type="button" aria-pressed="false">AI modified</button>
             </div>
           </div>
@@ -497,7 +497,7 @@
       }
       const visibleBeforeAfterState = view.dataset.beforeAfterState || "before";
       const nextBeforeAfterState = visibleBeforeAfterState === "before" ? "after" : "before";
-      beforeAfterButton.textContent = `Show ${nextBeforeAfterState}`;
+      beforeAfterButton.textContent = nextBeforeAfterState === "before" ? "Before" : "After";
       beforeAfterButton.setAttribute("aria-label", `Show ${nextBeforeAfterState} image ${item.number}`);
       beforeAfterButton.classList.toggle("is-active", state !== "ai");
       aiButton.setAttribute("aria-pressed", String(state === "ai"));
@@ -528,7 +528,7 @@
       lightboxImage.alt = `${currentState === "ai" ? "AI modified" : currentState} state for retouching comparison ${item.number}`;
       lightboxTitle.textContent = `Image ${item.number}`;
       lightboxCount.textContent = `${currentIndex + 1} / ${items.length}`;
-      lightboxBeforeAfterToggle.textContent = `Show ${nextBeforeAfterState}`;
+      lightboxBeforeAfterToggle.textContent = nextBeforeAfterState === "before" ? "Before" : "After";
       lightboxBeforeAfterToggle.dataset.state = nextBeforeAfterState;
       lightboxBeforeAfterToggle.setAttribute("aria-label", `Show ${nextBeforeAfterState} image ${item.number}`);
       lightboxBeforeAfterToggle.classList.toggle("is-active", currentState !== "ai");
