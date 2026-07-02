@@ -137,6 +137,11 @@
       object-fit: cover;
     }
 
+    .image-button[data-state="before"] img,
+    .image-button[data-state="after"] img {
+      transform: scale(1.035);
+    }
+
     .ai-placeholder {
       display: grid;
       width: 100%;
@@ -545,7 +550,7 @@
       }
       const nextBeforeAfterState = lightboxBeforeAfterState === "before" ? "after" : "before";
       if (currentState === "ai" && item.ai.type === "video") {
-        lightboxStage.innerHTML = `<video src="${item.ai.src}" poster="${item.ai.poster}" controls autoplay loop muted playsinline></video>`;
+        lightboxStage.innerHTML = `<video src="${item.ai.src}" poster="${item.ai.poster}" controls autoplay loop playsinline></video>`;
       } else {
         const imageSource = currentState === "ai" ? item.ai.src : item[currentState];
         lightboxStage.innerHTML = `<img src="${imageSource}" alt="${currentState === "ai" ? "AI modified" : currentState} state for retouching comparison ${item.number}">`;
