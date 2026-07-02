@@ -6,12 +6,12 @@
   <title>Before/After Retouching | Antonio Colomba</title>
   <style>
     :root {
-      --paper: #f8f8f5;
-      --ink: #202833;
-      --muted: #66717f;
-      --blue: #174e8f;
-      --teal: #0f766e;
-      --rule: #dfe7ef;
+      --paper: #707070;
+      --ink: #fbfaf7;
+      --muted: #fbfaf7;
+      --blue: #eef6ff;
+      --teal: #ecfff9;
+      --rule: rgba(251, 250, 247, 0.38);
       --night: #090b0d;
       --soft: #edf3f6;
       --warm: #efe6d5;
@@ -195,7 +195,8 @@
       cursor: pointer;
     }
 
-    .view-control[aria-pressed="true"] {
+    .view-control[aria-pressed="true"],
+    .view-control.is-active {
       background: var(--blue);
       color: var(--paper);
     }
@@ -312,7 +313,8 @@
       color: rgba(237, 243, 246, 0.72);
     }
 
-    .switch[aria-pressed="true"] {
+    .switch[aria-pressed="true"],
+    .switch.is-active {
       background: var(--soft);
       color: var(--night);
     }
@@ -414,9 +416,8 @@
     <div class="lightbox-controls">
       <button class="arrow prev" type="button" aria-label="Previous image">&lt;</button>
       <div class="switches" aria-label="Choose image state">
-        <button class="switch" type="button" data-state="before" aria-pressed="true">Before</button>
-        <button class="switch" type="button" data-state="after" aria-pressed="false">After</button>
-        <button class="switch" type="button" data-state="ai" aria-pressed="false" disabled>AI</button>
+        <button class="switch before-after-lightbox-toggle is-active" type="button" data-state="after">Show after</button>
+        <button class="switch ai-lightbox-toggle" type="button" data-state="ai" aria-pressed="false" disabled>AI modified</button>
       </div>
       <p class="lightbox-count">1 / 10</p>
       <button class="arrow next" type="button" aria-label="Next image">&gt;</button>
@@ -441,9 +442,11 @@
     const lightboxImage = lightbox.querySelector(".lightbox-stage img");
     const lightboxTitle = lightbox.querySelector(".lightbox-title");
     const lightboxCount = lightbox.querySelector(".lightbox-count");
-    const switches = [...lightbox.querySelectorAll(".switch")];
+    const lightboxBeforeAfterToggle = lightbox.querySelector(".before-after-lightbox-toggle");
+    const lightboxAiToggle = lightbox.querySelector(".ai-lightbox-toggle");
     let currentIndex = 0;
     let currentState = "before";
+    let lightboxBeforeAfterState = "before";
     let lastFocused = null;
 
     function aiPlaceholderMarkup(number) {
@@ -488,7 +491,7 @@
               <figcaption><span class="state-label">Before</span><span class="state-action open-link">Open</span></figcaption>
             </figure>
             <div class="view-controls" aria-label="Choose state for image ${item.number}">
-              <button class="view-control before-after-toggle" type="button" aria-pressed="true">Before / After</button>
+              <button class="view-control before-after-toggle is-active" type="button" aria-label="Show after image ${item.number}">Show after</button>
               <button class="view-control ai-toggle" type="button" aria-pressed="false">AI modified</button>
             </div>
           </div>
@@ -501,7 +504,8 @@
       gallery.querySelectorAll(".comparison-view").forEach((view) => {
         const index = Number(view.dataset.index);
         view.querySelector(".before-after-toggle").addEventListener("click", () => {
-          const nextState = view.dataset.currentState === "before" ? "after" : "before";
+          const visibleBeforeAfterState = view.dataset.currentState === "ai" ? view.dataset.beforeAfterState || "before" : view.dataset.currentState;
+          const nextState = visibleBeforeAfterState === "before" ? "after" : "before";
           updateComparisonView(view, index, nextState);
         });
         view.querySelector(".ai-toggle").addEventListener("click", () => {
@@ -530,7 +534,14 @@
       const aiButton = view.querySelector(".ai-toggle");
 
       view.dataset.currentState = state;
-      beforeAfterButton.setAttribute("aria-pressed", String(state === "before" || state === "after"));
+      if (state === "before" || state === "after") {
+        view.dataset.beforeAfterState = state;
+      }
+      const visibleBeforeAfterState = view.dataset.beforeAfterState || "before";
+      const nextBeforeAfterState = visibleBeforeAfterState === "before" ? "after" : "before";
+      beforeAfterButton.textContent = `Show ${nextBeforeAfterState}`;
+      beforeAfterButton.setAttribute("aria-label", `Show ${nextBeforeAfterState} image ${item.number}`);
+      beforeAfterButton.classList.toggle("is-active", state !== "ai");
       aiButton.setAttribute("aria-pressed", String(state === "ai"));
 
       if (state === "ai") {
@@ -550,15 +561,21 @@
       if (currentState === "ai" && !item.ai) {
         currentState = "before";
       }
+      if (currentState === "before" || currentState === "after") {
+        lightboxBeforeAfterState = currentState;
+      }
       const imageSource = currentState === "ai" ? item.ai : item[currentState];
+      const nextBeforeAfterState = lightboxBeforeAfterState === "before" ? "after" : "before";
       lightboxImage.src = imageSource;
       lightboxImage.alt = `${currentState === "ai" ? "AI modified" : currentState} state for retouching comparison ${item.number}`;
       lightboxTitle.textContent = `Image ${item.number}`;
       lightboxCount.textContent = `${currentIndex + 1} / ${items.length}`;
-      switches.forEach((button) => {
-        button.disabled = button.dataset.state === "ai" && !item.ai;
-        button.setAttribute("aria-pressed", String(button.dataset.state === currentState));
-      });
+      lightboxBeforeAfterToggle.textContent = `Show ${nextBeforeAfterState}`;
+      lightboxBeforeAfterToggle.dataset.state = nextBeforeAfterState;
+      lightboxBeforeAfterToggle.setAttribute("aria-label", `Show ${nextBeforeAfterState} image ${item.number}`);
+      lightboxBeforeAfterToggle.classList.toggle("is-active", currentState !== "ai");
+      lightboxAiToggle.disabled = !item.ai;
+      lightboxAiToggle.setAttribute("aria-pressed", String(currentState === "ai"));
     }
 
     function openLightbox(index, state, trigger) {
@@ -584,11 +601,17 @@
       updateLightbox();
     }
 
-    switches.forEach((button) => {
-      button.addEventListener("click", () => {
-        currentState = button.dataset.state;
-        updateLightbox();
-      });
+    lightboxBeforeAfterToggle.addEventListener("click", () => {
+      currentState = lightboxBeforeAfterState === "before" ? "after" : "before";
+      updateLightbox();
+    });
+
+    lightboxAiToggle.addEventListener("click", () => {
+      if (!items[currentIndex].ai) {
+        return;
+      }
+      currentState = "ai";
+      updateLightbox();
     });
 
     lightbox.querySelector(".close").addEventListener("click", closeLightbox);

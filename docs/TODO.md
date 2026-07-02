@@ -73,6 +73,7 @@ Last updated: 2026-07-02
 
 ## Queued
 
+- 2026-07-02 [Queued] Create a 720p Higgsfield image-to-video sample from retouching comparison 1 where the woman turns toward camera, smiles, lowers her hand out of frame, and the camera feels handheld but steady. Cost preflight only so far: Seedance 2.0 720p fast is 17.5 credits; standard is 22.5 credits.
 - 2026-07-02 [Queued] Generate Higgsfield AI-altered variants for the remaining `projects/before-after-retouching/` gallery comparisons and replace the placeholder third state for each comparison.
 - 2026-06-30 [Next] Research SUNY school/program options Antonio could enter for Summer 2026 if still feasible or Fall 2026, including loan/aid implications and realistic application timing.
 - Enable HTTPS enforcement in GitHub Pages after GitHub finishes issuing the certificate for `acolomba.site`.
