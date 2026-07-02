@@ -1,4 +1,4 @@
-const CACHE_NAME = "sound-a-tude-v1";
+const CACHE_NAME = "sound-a-tude-v27";
 const APP_SHELL = [
   "./",
   "./index.html",
@@ -18,6 +18,7 @@ const APP_SHELL = [
 ];
 
 self.addEventListener("install", (event) => {
+  self.skipWaiting();
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => cache.addAll(APP_SHELL))
   );
@@ -29,7 +30,7 @@ self.addEventListener("activate", (event) => {
       cacheNames
         .filter((cacheName) => cacheName !== CACHE_NAME)
         .map((cacheName) => caches.delete(cacheName))
-    ))
+    )).then(() => self.clients.claim())
   );
 });
 
