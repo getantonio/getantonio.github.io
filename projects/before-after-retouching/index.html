@@ -6,11 +6,11 @@
   <title>Before/After Retouching | Antonio Colomba</title>
   <style>
     :root {
-      --paper: #707070;
+      --paper: #767676;
       --ink: #202833;
       --muted: #202833;
-      --blue: #174e8f;
-      --teal: #0f766e;
+      --blue: #202833;
+      --teal: #202833;
       --rule: rgba(32, 40, 51, 0.34);
       --night: #090b0d;
       --soft: #edf3f6;
@@ -394,7 +394,7 @@
 
     const items = Array.from({ length: 10 }, (_, index) => {
       const number = String(index + 1).padStart(2, "0");
-      return {
+      const item = {
         number,
         before: `images/image-${number}-before.webp`,
         after: `images/image-${number}-after.webp`,
@@ -406,11 +406,14 @@
           poster: `images/image-${number}-after-thumb.webp`,
           width: aiVideos[number].width,
           height: aiVideos[number].height
-        } : number === "10" ? {
-          type: "image",
-          src: `upscaled/image-${number}-after-higgsfield-4k.webp`
         } : null
       };
+      if (number === "10") {
+        item.after = `upscaled/image-${number}-after-higgsfield-4k.webp`;
+        item.afterThumb = item.after;
+        item.ai = null;
+      }
+      return item;
     });
 
     const gallery = document.querySelector(".gallery");
@@ -474,7 +477,7 @@
             </figure>
             <div class="view-controls" aria-label="Choose state for image ${item.number}">
               <button class="view-control before-after-toggle is-active" type="button" aria-label="Show after image ${item.number}">After</button>
-              <button class="view-control ai-toggle" type="button" aria-pressed="false">AI modified</button>
+              ${item.ai ? '<button class="view-control ai-toggle" type="button" aria-pressed="false">AI modified</button>' : ""}
             </div>
           </div>
         </article>
@@ -490,9 +493,12 @@
           const nextState = visibleBeforeAfterState === "before" ? "after" : "before";
           updateComparisonView(view, index, nextState);
         });
-        view.querySelector(".ai-toggle").addEventListener("click", () => {
-          updateComparisonView(view, index, "ai");
-        });
+        const aiToggle = view.querySelector(".ai-toggle");
+        if (aiToggle) {
+          aiToggle.addEventListener("click", () => {
+            updateComparisonView(view, index, "ai");
+          });
+        }
         bindDisplayButton(view);
       });
     }
@@ -524,7 +530,9 @@
       beforeAfterButton.textContent = nextBeforeAfterState === "before" ? "Before" : "After";
       beforeAfterButton.setAttribute("aria-label", `Show ${nextBeforeAfterState} image ${item.number}`);
       beforeAfterButton.classList.toggle("is-active", state !== "ai");
-      aiButton.setAttribute("aria-pressed", String(state === "ai"));
+      if (aiButton) {
+        aiButton.setAttribute("aria-pressed", String(state === "ai"));
+      }
 
       if (state === "ai") {
         slot.innerHTML = aiMediaMarkup(item);
@@ -560,6 +568,7 @@
       lightboxBeforeAfterToggle.setAttribute("aria-label", `Show ${nextBeforeAfterState} image ${item.number}`);
       lightboxBeforeAfterToggle.classList.toggle("is-active", currentState !== "ai");
       lightboxAiToggle.disabled = !item.ai;
+      lightboxAiToggle.hidden = !item.ai;
       lightboxAiToggle.setAttribute("aria-pressed", String(currentState === "ai"));
     }
 
