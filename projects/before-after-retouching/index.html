@@ -123,24 +123,18 @@
       outline-offset: 4px;
     }
 
-    .image-button img,
+    .image-button img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
     .image-button video {
       display: block;
       width: 100%;
-      aspect-ratio: 1.12 / 1;
-      object-fit: cover;
-      background: var(--night);
-    }
-
-    .image-button video {
       aspect-ratio: 1040 / 884;
       object-fit: cover;
-    }
-
-    .image-button[data-state="before"] img,
-    .image-button[data-state="after"] img {
-      transform: scale(1.12);
-      transform-origin: center;
+      background: var(--night);
     }
 
     .ai-placeholder {
